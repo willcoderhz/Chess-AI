@@ -150,3 +150,88 @@ def minimaxTest(yourAgent, minimax_fn):
     except:
         print('Minimax Test: ERROR OCCURRED')
         print(traceback.format_exc())
+
+def alphabetaTest(yourAgent, alphabeta_fn):
+    """Improved test for AlphaBeta algorithm with specific board setups and expected scores.
+    
+    Args:
+        yourAgent: The agent you are testing.
+        alphabeta_fn: The alphabeta function to test.
+    
+    Returns:
+        None
+    """
+
+    print("=== AlphaBeta Test: Starting ===")
+    
+    def time_left():
+        return 10000  # No time constraints in testing
+
+    # Test Case 1 - Set up for P1 to make optimal decision
+    print("\nRunning AlphaBeta Test 1...\n")
+    
+    player = yourAgent()
+    opponent = RandomPlayer()
+    sample_board = Board(player, opponent)
+
+    # Simple board state setup for Player 1
+    board_state_1 = [
+        [' ', ' ', 'K1', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', 'X', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', 'X', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    ]
+    sample_board.set_state(board_state_1, True)
+
+    expected_depth_scores_1 = [(1, -1), (2, -2), (3, 0), (4, 1), (5, 2)]
+    test_pass_1 = True
+
+    for depth, expected_score in expected_depth_scores_1:
+        move, score = alphabeta_fn(player, sample_board, time_left, depth=depth, my_turn=True)
+        if score != expected_score:
+            print(f"AlphaBeta failed at depth {depth} (expected {expected_score}, got {score})")
+            test_pass_1 = False
+        else:
+            print(f"AlphaBeta passed at depth {depth} (score: {score})")
+
+    # Test Case 2 - Set up for Player 2 to make optimal decision
+    print("\nRunning AlphaBeta Test 2...\n")
+
+    player2 = yourAgent()
+    sample_board_2 = Board(opponent, player2)
+
+    # More complex board setup for Player 2
+    board_state_2 = [
+        [' ', ' ', ' ', ' ', 'X', 'X', ' ', ' ', ' '],
+        [' ', ' ', 'X', ' ', ' ', ' ', 'X', ' ', ' '],
+        [' ', 'X', ' ', ' ', 'X', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', 'X', ' ', 'K2', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', 'K1', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    ]
+    sample_board_2.set_state(board_state_2, p1_turn=True)
+
+    expected_depth_scores_2 = [(1, 0), (2, -1), (3, -2), (4, -1), (5, -3)]
+    test_pass_2 = True
+
+    for depth, expected_score in expected_depth_scores_2:
+        move, score = alphabeta_fn(player2, sample_board_2, time_left, depth=depth, my_turn=False)
+        if score != expected_score:
+            print(f"AlphaBeta failed at depth {depth} (expected {expected_score}, got {score})")
+            test_pass_2 = False
+        else:
+            print(f"AlphaBeta passed at depth {depth} (score: {score})")
+
+    # Test summary
+    if test_pass_1 and test_pass_2:
+        print("\n=== AlphaBeta Test: All Tests Passed! ===")
+    else:
+        print("\n=== AlphaBeta Test: Some Tests Failed ===")

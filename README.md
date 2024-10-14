@@ -1,12 +1,6 @@
-# Assignment 2 - Knight Isolation
+#### Knight Isolation Project
 
-## Instructor: Dr. Thomas Ploetz
-
-## Deadline: <font color='red'>Monday, September 23rd, 7:59 am EDT</font>
-
-#### Released: Monday, September 9th, 7:59 am EDT
-
-This assignment will cover some of the concepts discussed in the Adversarial Search lectures. You will be implementing game playing agents for a variant of the game Isolation.
+This project will cover some of the concepts discussed in the Adversarial Search lectures. You will be implementing game playing agents for a variant of the game Isolation.
 
 We are also implementing this through Jupyter Notebook, so you all may find it useful to spend some time getting familiar with this software. During the first week of classes, there was an assignment [Assignment 0](https://github.gatech.edu/omscs6601/assignment_0/) that spends some time going through Python and Jupyter. If you are unfamiliar with either Python or Jupyter, please go through that assignment first!
 
@@ -20,7 +14,7 @@ We are also implementing this through Jupyter Notebook, so you all may find it u
 <a name="setup"/></a>
 ## Setup
 
-For this assignment, we **highly** recommend you to create a new environment **just** for this one assignment. 
+For this project, we **highly** recommend you to create a new environment **just** for this one assignment. 
 
 ```
 conda create -n ai_env_a2 python=3.9
